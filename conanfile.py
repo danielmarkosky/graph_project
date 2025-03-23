@@ -6,6 +6,7 @@ class DuckDuckConan(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
 
     def requirements(self):
+        self.requires("boost/1.87.0")
         self.requires("gtest/1.16.0")
 
     def layout(self):
