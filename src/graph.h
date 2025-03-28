@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/connected_components.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
@@ -8,8 +8,15 @@
 #include <vector>
 #include <unordered_map>
 
-class Graph {
-private:
-  boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS> graph;
+namespace duck {
 
-};
+  class Graph {
+  private:
+    int num_nodes;
+    boost::adjacency_matrix<boost::undirectedS> graph;
+  public:
+    Graph(int);
+    bool is_connected();
+  };
+
+}
