@@ -15,3 +15,6 @@ target_link_libraries(${PROJECT_NAME} ${PACKAGES})
 
 add_executable(${PROJECT_NAME}_units ${SRC_FILES} ${TEST_FILES})
 target_link_libraries(${PROJECT_NAME}_units ${PACKAGES})
+
+add_executable(${PROJECT_NAME}_sandbox ${SRC_FILES} "sandbox/sandbox_main.cpp")
+target_link_libraries(${PROJECT_NAME}_sandbox ${PACKAGES})
