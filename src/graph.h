@@ -14,6 +14,7 @@ namespace duck {
     int num_nodes;
     boost::adjacency_matrix<boost::undirectedS> graph;
   public:
+    Graph() = delete;
     Graph(int);
     void iterate();
     bool is_connected();

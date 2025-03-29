@@ -17,6 +17,7 @@ namespace duck {
     return num_components == 1;
   }
 
+  // This function iterates over the graph and randomly adds or removes edges
   void Graph::iterate() {
 	std::unordered_map<int, std::unordered_map<int, int>> edges_after_iteration;
     for (int ii = 0; ii < num_nodes; ii++) {
@@ -26,11 +27,6 @@ namespace duck {
         } else {
           edges_after_iteration[ii][jj] = 0;
         }
-//		if (boost::edge(ii, jj, graph).second) {
-//          edges_after_iteration[ii][jj] = 1;
-//		} else {
-//          edges_after_iteration[ii][jj] = 0;
-//		}
 	  }
 	}
 	for (int ii = 0; ii < num_nodes; ii++) {
