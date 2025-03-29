@@ -3,12 +3,16 @@
 
 int main() {
   std::cout << "Duck Hello:>" << std::endl;
-  // Make a graph
-  // start checking the shortest paths and connectivity
-  // do till the graph is no longer connected
-  duck::Graph graph(5);
+
+  duck::Graph graph(10);
+  int max_iterations = 1000;
   int iter = 0;
-  while (iter++ < 10 and graph.is_connected()) {
-    std::cout << "Graph is connected " << iter << std::endl;
+  while (iter++ < max_iterations and graph.is_connected()) {
+    graph.iterate();
+  }
+  if (iter == max_iterations + 1) {
+    std::cout << "Graph is connected after " << max_iterations << " iterations." << std::endl;
+  } else {
+    std::cout << "Graph is not connected after " << iter << " iterations." << std::endl;
   }
 }

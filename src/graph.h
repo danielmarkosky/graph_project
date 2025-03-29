@@ -11,11 +11,11 @@
 namespace duck {
 
   class Graph {
-  private:
     int num_nodes;
     boost::adjacency_matrix<boost::undirectedS> graph;
   public:
     Graph(int);
+    void iterate();
     bool is_connected();
   };
 
