@@ -4,6 +4,6 @@
 
 namespace duck {
 
-  bool chance_with_probability(double);
+bool chance_with_probability(double);
 
 }
