@@ -1,25 +1,18 @@
 from conan import ConanFile
-from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
+from conan.tools.cmake import CMake, cmake_layout
 
-class MyCppProjectConan(ConanFile):
-    name = "MyCppProject"
-    version = "1.0"
+class DuckDuckConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = ["gtest/1.16.0"]
     generators = "CMakeDeps", "CMakeToolchain"
 
+    def requirements(self):
+        self.requires("boost/1.87.0")
+        self.requires("gtest/1.16.0")
+
     def layout(self):
-        self.folders.source = "."
-        self.folders.build = "build"
+        cmake_layout(self)
 
     def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-
-    def package(self):
-        cmake = CMake(self)
-        cmake.install()
-
-    def package_info(self):
-        self.cpp_info.bindirs = ["bin"]
