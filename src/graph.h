@@ -11,14 +11,22 @@
 namespace duck {
 
 class Graph {
-    int num_nodes;
+    friend class SimpleGraph;
+
+   protected:
     boost::adjacency_matrix<boost::undirectedS> graph;
+    int num_nodes;
+    void addEdge(int, int);
+    void removeEdge(int, int);
 
    public:
     Graph() = delete;
     Graph(int);
-    void iterate();
-    bool is_connected();
+    int numOfEdges();
+    virtual void iterate();
+    bool isConnected();
+    bool hasEdge(int, int);
+    virtual ~Graph() = default;
 };
 
 }  // namespace duck

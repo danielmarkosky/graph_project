@@ -12,6 +12,7 @@ The project uses adjacency matrix representation of a graph
  - googletest for unit testing
  - boost/graph for graph representation and algorithms
  - copilot for vibes
+ - clang-format for code formatting
  - TODO!
 
 Common, I write this mostly to show that I can write some :>

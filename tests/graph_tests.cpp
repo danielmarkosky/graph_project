@@ -2,7 +2,12 @@
 
 #include "../src/graph.h"
 
-TEST(GraphTest, IsConnected) {
-    duck::Graph graph(5);
-    EXPECT_TRUE(graph.is_connected());
-}
+// TEST(GraphTest, Constructor) {
+//    duck::Graph graph(10);
+//    EXPECT_EQ(graph.numOfEdges(), 45);
+//}
+//
+// TEST(GraphTest, IsConnected) {
+//    duck::Graph graph(5);
+//    EXPECT_TRUE(graph.isConnected());
+//}

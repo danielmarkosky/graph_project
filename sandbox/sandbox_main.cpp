@@ -3,7 +3,7 @@
 #include "../src/utils.h"
 
 int main() {
-    std::cout << "Duck Hello:> SANDBOX" << std::endl;
+    std::cout << "Duck Hello :> SANDBOX" << std::endl;
 
     int duck = 0;
     for (int ii = 0; ii < 1000; ii++) {
