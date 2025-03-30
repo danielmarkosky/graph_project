@@ -11,8 +11,6 @@
 namespace duck {
 
 class Graph {
-    friend class SimpleGraph;
-
    protected:
     boost::adjacency_matrix<boost::undirectedS> graph;
     int num_nodes;
@@ -27,6 +25,8 @@ class Graph {
     bool isConnected();
     bool hasEdge(int, int);
     virtual ~Graph() = default;
+
+    // friend class SimpleGraph;
 };
 
 }  // namespace duck

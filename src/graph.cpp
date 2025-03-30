@@ -4,7 +4,7 @@
 
 namespace duck {
 
-Graph::Graph(int num_nodes) : graph(num_nodes), num_nodes(num_nodes) {
+Graph::Graph(int n) : graph(n), num_nodes(n) {
     for (int ii = 0; ii < num_nodes; ii++) {
         for (int jj = ii + 1; jj < num_nodes; jj++) {
             boost::add_edge(ii, jj, graph);
