@@ -22,6 +22,8 @@ bool Graph::isConnected() {
     return num_components == 1;
 }
 
+void Graph::iterate() {}
+
 int Graph::numOfEdges() { return boost::num_edges(graph); }
 
 bool Graph::hasEdge(int ii, int jj) {

@@ -25,8 +25,6 @@ class Graph {
     bool isConnected();
     bool hasEdge(int, int);
     virtual ~Graph() = default;
-
-    // friend class SimpleGraph;
 };
 
 }  // namespace duck
