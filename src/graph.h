@@ -5,6 +5,7 @@
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <iostream>
+#include <nlohmann/json.hpp>
 #include <unordered_map>
 #include <vector>
 
@@ -20,10 +21,13 @@ class Graph {
    public:
     Graph() = delete;
     Graph(int);
+    Graph(const nlohmann::json&);
     int numOfEdges();
     virtual void iterate();
     bool isConnected();
     bool hasEdge(int, int);
+    int shortestPath(int, int);
+    nlohmann::json getJson();
     virtual ~Graph() = default;
 };
 

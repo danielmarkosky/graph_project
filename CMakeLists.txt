@@ -7,8 +7,9 @@ file(GLOB TEST_FILES "tests/*.cpp")
 
 find_package(GTest REQUIRED)
 find_package(Boost REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
-set(PACKAGES boost::boost gtest::gtest)
+set(PACKAGES boost::boost gtest::gtest nlohmann_json::nlohmann_json)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} "src/main.cpp")
 target_link_libraries(${PROJECT_NAME} ${PACKAGES})

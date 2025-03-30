@@ -8,6 +8,7 @@ class DuckDuckConan(ConanFile):
     def requirements(self):
         self.requires("boost/1.87.0")
         self.requires("gtest/1.16.0")
+        self.requires("nlohmann_json/3.11.2")
 
     def layout(self):
         cmake_layout(self)
