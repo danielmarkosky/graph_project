@@ -11,5 +11,6 @@ TEST(UtilsTest, ChanceWithProbability) {
             successes++;
         }
     }
+    // It does make me feel a little bit uncomfortable
     EXPECT_NEAR(successes / static_cast<double>(trials), p, 0.05);
 }

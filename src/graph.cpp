@@ -37,18 +37,14 @@ int Graph::shortestPath(int ii, int jj) {
 }
 
 nlohmann::json Graph::getJson() {
+    typedef boost::graph_traits<boost::adjacency_matrix<boost::undirectedS>>::
+        edge_iterator EdgeIterator;
+
     nlohmann::json j;
     j["num_nodes"] = num_nodes;
-    //    for (auto edge : boost::edges(graph)) {
-    //        j["edges"].push_back({boost::source(edge, graph),
-    //        boost::target(edge, graph)});
-    //    }
-    for (int ii = 0; ii < num_nodes; ii++) {  // TODO !!! This sucks, please fix
-        for (int jj = ii + 1; jj < num_nodes; jj++) {
-            if (hasEdge(ii, jj)) {
-                j["edges"].push_back({ii, jj});
-            }
-        }
+    std::pair<EdgeIterator, EdgeIterator> edgePair = boost::edges(graph);
+    for (EdgeIterator ei = edgePair.first; ei != edgePair.second; ++ei) {
+        j["edges"].push_back({source(*ei, graph), target(*ei, graph)});
     }
     return j;
 }

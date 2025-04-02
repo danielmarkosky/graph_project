@@ -19,3 +19,8 @@ target_link_libraries(${PROJECT_NAME}_units ${PACKAGES})
 
 add_executable(${PROJECT_NAME}_sandbox ${SRC_FILES} "sandbox/sandbox_main.cpp")
 target_link_libraries(${PROJECT_NAME}_sandbox ${PACKAGES})
+
+# Executables for simulations of different kinds of graphs:
+
+add_executable(${PROJECT_NAME}_connected_graph_with_random_edges_simulation ${SRC_FILES} "sandbox/connected_graph_with_random_edges_simulation_main.cpp")
+target_link_libraries(${PROJECT_NAME}_connected_graph_with_random_edges_simulation ${PACKAGES})
