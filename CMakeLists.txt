@@ -24,3 +24,6 @@ target_link_libraries(${PROJECT_NAME}_sandbox ${PACKAGES})
 
 add_executable(${PROJECT_NAME}_connected_graph_with_random_edges_simulation ${SRC_FILES} "sandbox/connected_graph_with_random_edges_simulation_main.cpp")
 target_link_libraries(${PROJECT_NAME}_connected_graph_with_random_edges_simulation ${PACKAGES})
+
+add_executable(${PROJECT_NAME}_multithreading_connected_graph_with_random_edges_simulation ${SRC_FILES} "sandbox/multithreading_connected_graph_with_random_edges_simulation_main.cpp")
+target_link_libraries(${PROJECT_NAME}_multithreading_connected_graph_with_random_edges_simulation ${PACKAGES})
