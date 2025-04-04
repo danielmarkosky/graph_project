@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../src/simple_graph.h"
+#include "../src/utils.h"
 
 int main() {
     auto start = std::chrono::high_resolution_clock::now();
@@ -14,20 +15,20 @@ int main() {
     nlohmann::json results;
     std::unordered_map<int, std::vector<int>> num_of_nodes_to_iterations;
 
-    int max_iterations = 5000;
-    int tries_const = 50000;
-    int num_nodes_start = 5;
-    int num_nodes_end = 10;
+    int max_iterations = 10000000;
+    int tries_const = 10000000;
+    int num_nodes_start = 2;
+    int num_nodes_end = 15;
     int num_nodes_increment = 1;
 
-    // TODO delete all of those couts and make json output to file
     for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
          num_of_nodes += num_nodes_increment) {
         auto start_for_number = std::chrono::high_resolution_clock::now();
 
+        // Too much casting? probably...
         int number_of_tries =
-            std::max(1, static_cast<int>(static_cast<double>(tries_const) /
-                                         static_cast<double>(num_of_nodes)));
+            static_cast<int>(std::max(1., static_cast<double>(tries_const) /
+                                              std::pow(2, num_of_nodes - 2)));
 
         std::cout << "Number of nodes: " << num_of_nodes << std::endl;
         std::cout << "Number of tries: " << number_of_tries << std::endl;
@@ -41,12 +42,14 @@ int main() {
 
             num_of_nodes_to_iterations[num_of_nodes].push_back(iter);
         }
+
         double average_number_of_iterations =
             std::accumulate(num_of_nodes_to_iterations[num_of_nodes].begin(),
                             num_of_nodes_to_iterations[num_of_nodes].end(), 0) /
             static_cast<double>(number_of_tries);
         std::cout << "Average number of iterations: "
                   << average_number_of_iterations << std::endl;
+
         auto end_for_number = std::chrono::high_resolution_clock::now();
 
         std::chrono::duration<double> elapsed_for_number =
@@ -59,18 +62,19 @@ int main() {
             std::to_string(average_number_of_iterations);
         results[std::to_string(num_of_nodes)]["number_of_tries"] =
             std::to_string(number_of_tries);
-        results[std::to_string(num_of_nodes)]["iterations"] =
-            nlohmann::json::array();
-        for (int ii = 0; ii < number_of_tries; ii++) {
-            results[std::to_string(num_of_nodes)]["iterations"].push_back(
-                num_of_nodes_to_iterations[num_of_nodes][ii]);
-        }
+
+        //                TODO Uncomment this if you want to see the iterations
+        //                for each try
+        //                results[std::to_string(num_of_nodes)]["iterations"] =
+        //                    nlohmann::json::array();
+        //                for (int ii = 0; ii < number_of_tries; ii++) {
+        //                    results[std::to_string(num_of_nodes)]["iterations"].push_back(
+        //                        num_of_nodes_to_iterations[num_of_nodes][ii]);
+        //                }
     }
 
-    std::cout << std::endl;
-    std::cout << "Results:" << std::endl;
-    std::cout << results.dump() << std::endl;
-    std::cout << std::endl;
+    duck::write_json_to_file(results, "results",
+                             "connected_graph_with_random_edges.json");
 
     auto end = std::chrono::high_resolution_clock::now();
 
