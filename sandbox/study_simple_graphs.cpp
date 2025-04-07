@@ -11,9 +11,9 @@
 #include "../src/utils.h"
 
 const int num_of_tries = std::pow(10, 6);
-const int max_iterations = std::pow(10, 2);
+const int max_iterations = std::pow(10, 6);
 const int num_nodes_start = 2;
-const int num_nodes_end = 4;
+const int num_nodes_end = 25;
 const int num_nodes_increment = 1;
 const std::vector<std::pair<double, double>> probabilities = {
     {0.3, 0.3}, {0.3, 0.5}, {0.3, 0.7}, {0.5, 0.3}, {0.5, 0.5},
