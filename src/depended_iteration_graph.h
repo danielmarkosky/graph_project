@@ -7,7 +7,7 @@ namespace duck {
 class DependedIterationGraph : public duck::Graph {
    public:
     DependedIterationGraph(int n);
-    void iterate() override;
+    // void iterate() override;
 };
 
 }  // namespace duck

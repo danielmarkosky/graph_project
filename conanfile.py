@@ -5,6 +5,10 @@ class DuckDuckConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
 
+    def configure(self):
+        if self.settings.compiler.cppstd:
+            self.settings.compiler.cppstd = "17"
+
     def requirements(self):
         self.requires("boost/1.87.0")
         self.requires("gtest/1.16.0")

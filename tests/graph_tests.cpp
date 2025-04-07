@@ -10,6 +10,10 @@ TEST(GraphTest, Constructor) {
 TEST(GraphTest, IsConnected) {
     duck::Graph graph(5);
     EXPECT_FALSE(graph.isConnected());
+    nlohmann::json j = {{"num_nodes", 5},
+                        {"edges", {{0, 1}, {1, 2}, {2, 3}, {3, 4}}}};
+    duck::Graph graph2(j);
+    EXPECT_TRUE(graph2.isConnected());
 }
 
 TEST(GraphTest, JsonConstructor) {
@@ -21,15 +25,16 @@ TEST(GraphTest, JsonConstructor) {
     EXPECT_TRUE(graph.hasEdge(1, 2));
     EXPECT_TRUE(graph.hasEdge(2, 3));
     EXPECT_TRUE(graph.hasEdge(3, 4));
+    EXPECT_FALSE(graph.hasEdge(0, 2));
 }
 
-TEST(GraphTest, ShortestPath) {
-    //        nlohmann::json j = {{"num_nodes", 5},
-    //                            {"edges", {{0, 1}, {1, 2}, {2, 3}, {3, 4}}}};
-    //        duck::Graph graph(j);
-    //        EXPECT_EQ(graph.shortestPath(0, 1), 1);
-    //        EXPECT_EQ(graph.shortestPath(0, 4), 4);
-}
+// TEST(GraphTest, ShortestPath) {
+//        nlohmann::json j = {{"num_nodes", 5},
+//                            {"edges", {{0, 1}, {1, 2}, {2, 3}, {3, 4}}}};
+//        duck::Graph graph(j);
+//        EXPECT_EQ(graph.shortestPath(0, 1), 1);
+//        EXPECT_EQ(graph.shortestPath(0, 4), 4);
+// }
 
 TEST(GraphTest, GetJson) {
     nlohmann::json j = {{"num_nodes", 5},

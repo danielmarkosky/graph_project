@@ -4,6 +4,7 @@
 #include <boost/graph/connected_components.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/graph_traits.hpp>
+#include <functional>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <unordered_map>
@@ -18,15 +19,24 @@ class Graph {
     void addEdge(int, int);
     void removeEdge(int, int);
 
+    typedef std::unordered_map<int,
+                               std::unordered_map<int, std::function<bool()>>>
+        RulesMap;
+
+    std::vector<std::pair<int, int>> iterate(const std::function<bool()>&,
+                                             const std::function<bool()>&);
+    std::vector<std::pair<int, int>> iterate(const RulesMap&, const RulesMap&);
+
    public:
     Graph() = delete;
     Graph(int);
     Graph(const nlohmann::json&);
+    int numOfNodes();
     int numOfEdges();
-    virtual void iterate();
+    virtual std::vector<std::pair<int, int>> iterate();
     bool isConnected();
     bool hasEdge(int, int);
-    int shortestPath(int, int);
+    std::vector<int> shortestPaths(int);
     nlohmann::json getJson();
     virtual ~Graph() = default;
 };

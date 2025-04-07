@@ -6,7 +6,7 @@
 int main() {
     std::cout << "Duck Hello:>" << std::endl;
 
-    duck::SimpleGraph graph(100);
+    duck::SimpleGraph graph(100, .5, .5);
     int max_iterations = 10000;
     int iter = 0;
     while (iter++ < max_iterations and graph.isConnected()) {
