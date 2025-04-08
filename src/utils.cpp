@@ -37,6 +37,10 @@ nlohmann::json duck::get_json_from_map(
     return j;
 }
 
+void duck::create_directory(const std::string& path) {
+    std::filesystem::create_directory(path);
+}
+
 void duck::write_json_to_file(const nlohmann::json& j, const std::string& path,
                               const std::string& file_name) {
     std::ofstream file(path + "/" + file_name);
