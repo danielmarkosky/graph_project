@@ -53,8 +53,8 @@ std::mutex map_mutex;
 
 std::atomic<int> file_counter(0);
 
-void perform_iterations(double p_add, double p_remove, int num_of_nodes, const
-                         std::string& directory_path) {
+void perform_iterations(double p_add, double p_remove, int num_of_nodes,
+                        const std::string& directory_path) {
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<long> iterations(num_of_tries);
@@ -76,15 +76,8 @@ void perform_iterations(double p_add, double p_remove, int num_of_nodes, const
         {"num_of_nodes", num_of_nodes},
         {"average_iterations", average_number_of_iterations}};
 
-    duck::write_json_to_file(
-        result, directory_path, std::to_string(file_counter++) + ".json");
-
-//    {
-//        std::lock_guard<std::mutex> lock(map_mutex);
-//        probabilities_numOfNodes_avNumOfIterations
-//            [std::to_string(p_add) + "_" + std::to_string(p_remove)]
-//            [num_of_nodes] = average_number_of_iterations;
-//    }
+    duck::write_json_to_file(result, directory_path,
+                             std::to_string(file_counter++) + ".json");
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -111,23 +104,14 @@ int main() {
     for (const auto& [p_add, p_remove] : probabilities) {
         for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
              num_of_nodes += num_nodes_increment) {
-//            threads.emplace_back(perform_iterations, p_add, p_remove,
-//                                 num_of_nodes, directory_path); // ~120s
-            // Uncomment this line to run in parallel
-            perform_iterations(p_add, p_remove, num_of_nodes, directory_path);
+            threads.emplace_back(perform_iterations, p_add, p_remove,
+                                 num_of_nodes, directory_path);  // ~120s
         }
     }
 
     for (auto& thread : threads) {
         thread.join();
     }
-
-//    nlohmann::json results =
-//        duck::get_json_from_map(probabilities_numOfNodes_avNumOfIterations);
-
-//    duck::write_json_to_file(
-//        results, "results",
-//        "study_simple_graphs" + duck::get_unique_name() + ".json");
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =

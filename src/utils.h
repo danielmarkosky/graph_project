@@ -6,9 +6,9 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <random>
+#include <sstream>
 #include <string>
 #include <unordered_map>
-#include <sstream>
 
 namespace duck {
 
