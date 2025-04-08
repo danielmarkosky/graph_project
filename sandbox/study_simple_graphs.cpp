@@ -10,10 +10,11 @@
 #include "../src/simple_graph.h"
 #include "../src/utils.h"
 
-const int num_of_tries = std::pow(10, 6);
-const int max_iterations = std::pow(10, 6);
+// TODO: do program options
+const int num_of_tries = 1'000'000;
+const int max_iterations = 1'000'000;
 const int num_nodes_start = 2;
-const int num_nodes_end = 3;
+const int num_nodes_end = 30;
 const int num_nodes_increment = 1;
 const std::vector<std::pair<double, double>> probabilities = {
     {0.1, 0.1}, {0.1, 0.2}, {0.1, 0.3}, {0.1, 0.4}, {0.1, 0.5}, {0.1, 0.6},
@@ -45,11 +46,6 @@ nlohmann::json description = {
     {"num_nodes_end", num_nodes_end},
     {"num_nodes_increment", num_nodes_increment},
     {"probabilities", probabilities}};
-
-std::unordered_map<std::string, std::unordered_map<int, double>>
-    probabilities_numOfNodes_avNumOfIterations;
-
-std::mutex map_mutex;
 
 std::atomic<int> file_counter(0);
 
@@ -105,7 +101,7 @@ int main() {
         for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
              num_of_nodes += num_nodes_increment) {
             threads.emplace_back(perform_iterations, p_add, p_remove,
-                                 num_of_nodes, directory_path);  // ~120s
+                                 num_of_nodes, directory_path);
         }
     }
 
