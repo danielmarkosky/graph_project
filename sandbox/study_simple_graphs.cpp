@@ -3,6 +3,7 @@
 #include <iostream>
 #include <mutex>
 #include <nlohmann/json.hpp>
+#include <semaphore>
 #include <thread>
 #include <unordered_map>
 #include <vector>
@@ -48,6 +49,7 @@ nlohmann::json description = {
     {"probabilities", probabilities}};
 
 std::atomic<int> file_counter(0);
+std::counting_semaphore max_threads(std::thread::hardware_concurrency());
 
 void perform_iterations(double p_add, double p_remove, int num_of_nodes,
                         const std::string& directory_path) {
@@ -83,12 +85,16 @@ void perform_iterations(double p_add, double p_remove, int num_of_nodes,
               << ", num_of_nodes: " << num_of_nodes
               << ", average_iterations: " << average_number_of_iterations
               << ", duration: " << duration.count() << " s" << std::endl;
+
+    max_threads.release();
 }
 
 int main() {
     auto start = std::chrono::high_resolution_clock::now();
 
     std::cout << "Starting the simulation..." << std::endl;
+    std::cout << "Number of threads: " << std::thread::hardware_concurrency()
+              << std::endl;
 
     std::string directory_path =
         "results/study_simple_graphs" + duck::get_unique_name();
@@ -97,9 +103,10 @@ int main() {
 
     std::vector<std::thread> threads;
 
-    for (const auto& [p_add, p_remove] : probabilities) {
-        for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
-             num_of_nodes += num_nodes_increment) {
+    for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
+         num_of_nodes += num_nodes_increment) {
+        for (const auto& [p_add, p_remove] : probabilities) {
+            max_threads.acquire();
             threads.emplace_back(perform_iterations, p_add, p_remove,
                                  num_of_nodes, directory_path);
         }
