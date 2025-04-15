@@ -93,8 +93,6 @@ int main() {
     auto start = std::chrono::high_resolution_clock::now();
 
     std::cout << "Starting the simulation..." << std::endl;
-    std::cout << "Number of threads: " << std::thread::hardware_concurrency()
-              << std::endl;
 
     std::string directory_path =
         "results/study_simple_graphs" + duck::get_unique_name();

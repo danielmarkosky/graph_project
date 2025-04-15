@@ -27,3 +27,6 @@ target_link_libraries(${PROJECT_NAME}_sandbox ${PACKAGES})
 
 add_executable(${PROJECT_NAME}_study_simple_graphs ${SRC_FILES} "sandbox/study_simple_graphs.cpp")
 target_link_libraries(${PROJECT_NAME}_study_simple_graphs ${PACKAGES})
+
+add_executable(${PROJECT_NAME}_iteration_simple_graph ${SRC_FILES} "sandbox/iteration_simple_graph.cpp")
+target_link_libraries(${PROJECT_NAME}_iteration_simple_graph ${PACKAGES})
