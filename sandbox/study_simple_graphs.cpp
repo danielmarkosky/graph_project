@@ -49,7 +49,7 @@ nlohmann::json description = {
     {"probabilities", probabilities}};
 
 std::atomic<int> file_counter(0);
-std::counting_semaphore max_threads(std::thread::hardware_concurrency());
+std::counting_semaphore semaphore(std::thread::hardware_concurrency());
 
 void perform_iterations(double p_add, double p_remove, int num_of_nodes,
                         const std::string& directory_path) {
@@ -86,7 +86,7 @@ void perform_iterations(double p_add, double p_remove, int num_of_nodes,
               << ", average_iterations: " << average_number_of_iterations
               << ", duration: " << duration.count() << " s" << std::endl;
 
-    max_threads.release();
+    semaphore.release();
 }
 
 int main() {
@@ -101,19 +101,19 @@ int main() {
     duck::create_directory(directory_path);
     duck::write_json_to_file(description, directory_path, "description.json");
 
-    std::vector<std::thread> threads;
+    std::vector<std::jthread> jthreads;
 
     for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
          num_of_nodes += num_nodes_increment) {
         for (const auto& [p_add, p_remove] : probabilities) {
-            max_threads.acquire();
-            threads.emplace_back(perform_iterations, p_add, p_remove,
-                                 num_of_nodes, directory_path);
+            semaphore.acquire();
+            jthreads.emplace_back(perform_iterations, p_add, p_remove,
+                                  num_of_nodes, directory_path);
         }
     }
 
-    for (auto& thread : threads) {
-        thread.join();
+    for (auto& jthread : jthreads) {
+        jthread.join();
     }
 
     auto end = std::chrono::high_resolution_clock::now();
