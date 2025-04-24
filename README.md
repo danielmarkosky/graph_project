@@ -15,7 +15,7 @@ Yuval Noah Harari's book "Nexus" proposes a very interesting idea: Political sys
 * This is a very interesting topic, read "Nexus", it's amazing.
 
 ## Some reflections
-I don't believe it's an original idea, and I'm kinda not in the mood to search through scientific papers and reading smart words of smart people. I just thought that it would be a cool way to have something to showcase my coding abilities (or lack of them). Live long and prosper to all the people who are reading this. 
+I don't believe it's an original idea, haven't done excessive research, cannot tell. I just thought that it would be a cool way to have something to showcase my coding abilities (or lack of them). Live long and prosper to all the people who are reading this. 
 
 ## Technologies
  - C++ 20
