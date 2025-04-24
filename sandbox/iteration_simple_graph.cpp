@@ -1,9 +1,9 @@
-#include "../src/simple_graph.h"
-#include "../src/utils.h"
-
 #include <chrono>
 #include <iostream>
 #include <nlohmann/json.hpp>
+
+#include "../src/simple_graph.h"
+#include "../src/utils.h"
 
 int max_iterations = 1000;
 int num_of_nodes = 1000;
@@ -30,10 +30,11 @@ int main() {
     int iter = 0;
 
     while (iter++ < max_iterations and graph.isConnected()) {
-        std::vector<std::pair<int,int>> changed_edges = std::move(graph.iterate());
+        std::vector<std::pair<int, int>> changed_edges =
+            std::move(graph.iterate());
         nlohmann::json j = duck::get_json_from_vector(changed_edges);
         duck::write_json_to_file(j, directory_path,
-                                  std::to_string(iter) + ".json");
+                                 std::to_string(iter) + ".json");
         std::cout << "Iteration " << iter << ": " << changed_edges.size()
                   << " edges changed." << std::endl;
     }

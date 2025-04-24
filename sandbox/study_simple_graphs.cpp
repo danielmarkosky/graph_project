@@ -99,6 +99,8 @@ int main() {
     duck::create_directory(directory_path);
     duck::write_json_to_file(description, directory_path, "description.json");
 
+    std::cout << "Directory created: " << directory_path << std::endl;
+
     std::vector<std::jthread> jthreads;
 
     for (int num_of_nodes = num_nodes_start; num_of_nodes <= num_nodes_end;
